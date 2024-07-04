@@ -1,0 +1,126 @@
+.popup{
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: rgba($color-grey-dark-3, .8);
+    z-index: 5000;
+    opacity: 0;
+    visibility: hidden;
+    transition: all .3s;
+    
+    @supports ((backdrop-filter: blur(10px) or (-webkit-backdrop-filter: blur(10px)))){
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        background-color: rgba($color-black, .3);
+    }
+
+    &__content{
+        @include absCenter;
+        width: 75%;
+        box-shadow: 0 2rem 4rem rgba($color-black, .2);
+        border-radius: 3px;
+        display: table;
+        overflow: hidden;
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(.2);
+        transition: all .4s .2s;
+    }
+    &__left{
+        width: 33.333333333%;
+        display: table-cell;
+    }
+    &__right{
+        width: 66.666666666%;
+        display: table-cell;
+        vertical-align: middle;
+        padding: 3rem 5rem;
+        background-color: $color-white;
+    }
+    &__img{
+        display: block;
+        width: 100%;
+    }
+    &__text{
+        font-size: 1.4rem;
+        margin-bottom: 4rem;
+
+        column-count: 2;
+        column-gap: 4rem;
+        column-rule: 1px solid $color-grey-light-2;
+
+        hyphens: auto;
+    }
+
+// open states
+    &:target{
+        opacity: 1;
+        visibility: visible
+    }
+
+    &:target &__content{
+        opacity: 100;
+        transform: translate(-50%, -50%) scale(1);
+    }
+
+    &__close{
+        &:link,
+        &:visited{
+            color: $color-grey-dark;
+            position: absolute;
+            top: 2.5rem;
+            right: 2.5rem;
+            font-size: 3rem;
+            text-decoration: none;
+            display: inline-block;
+            transition: all .2s;
+            line-height: 1;
+        }
+
+        &:hover{
+            color: $color-primary;
+        }
+    }
+
+    //////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////
+    /// 
+    /// media query overhaul
+
+    @include respond(tab-land){
+        &__content{
+            @include absCenter;
+            border-radius: 5px;
+        }
+
+        &__close{
+            transform: scale(2);
+        }
+
+        &__left{
+            visibility: hidden;
+            position: absolute;
+        }
+        &__right{
+            height: 25%;
+            width: 100%;
+            display: inline-block;
+            padding: 4rem;
+                }
+        &__img{
+
+            &-2{
+                visibility: hidden;
+                position: absolute;
+            }
+        }
+
+        &__text{
+            font-size: 2.0rem;
+            margin-bottom: 4rem;
+            column-count: 1;
+        }
+    }
+}
